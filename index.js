@@ -2,8 +2,7 @@
 
 const assert = require('assert');
 const fs = require('fs-extra');
-
-const Octokit = require('@octokit/rest')();
+const Octokit = require('@octokit/rest');
 
 (async function main() {
   console.log(process.env);
