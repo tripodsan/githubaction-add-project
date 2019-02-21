@@ -52,7 +52,7 @@ const Octokit = require('@octokit/rest');
 
   const result = await octokit.projects.createCard({
     column_id: '2998585',
-    content_id: eventData.issue.url,
+    content_id: eventData.issue.id,
     content_type: 'Issue',
   });
   console.log(result);
