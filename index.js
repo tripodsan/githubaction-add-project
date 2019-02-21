@@ -3,7 +3,7 @@
 const assert = require('assert');
 const fs = require('fs-extra');
 
-const octokit = require('@octokit/rest')();
+const Octokit = require('@octokit/rest')();
 
 (async function main() {
   console.log(process.env);
@@ -47,34 +47,16 @@ const octokit = require('@octokit/rest')();
     return;
   }
 
-  octokit.authenticate({
-    type: 'token',
-    token: GITHUB_TOKEN
+  const octokit = new Octokit({
+    auth: `token ${GITHUB_TOKEN}`,
   });
 
   const result = await octokit.projects.createCard({
     column_id: '2998585',
-    content_id: eventData.action.issue.url,
+    content_id: eventData.issue.url,
     content_type: 'Issue',
   });
   console.log(result);
-  // octokit.request({
-  //   method: 'PUT',
-  //   url: '/repos/:repo/projects/issues/:issue_id',
-  //   data: {
-  //
-  //   },
-  //   repo: GITHUB_REPOSITORY,
-  //   issue_id: eventData.action.issue.number,
-  // });
-
-  await task(
-    octokit,
-    GITHUB_REPOSITORY,
-    issueNumber,
-    currentAssignee,
-    nextAssignee
-  );
 })().catch((e) => {
   console.error(e);
   process.exit(1);
