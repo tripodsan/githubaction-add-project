@@ -40,9 +40,10 @@ const octokit = require('@octokit/rest')();
   );
 
   const eventData = await fs.readJson(GITHUB_EVENT_PATH);
+  console.log(eventData);
 
-  if (eventData.action !== 'created') {
-    console.log(`only support '.action == created' (was ${eventData.action}`);
+  if (eventData.action !== 'opened') {
+    console.log(`only support '.action == opened' (was ${eventData.action})`);
     return;
   }
 
